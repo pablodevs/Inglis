@@ -5,7 +5,7 @@ import { GetWordInfoUseCase } from 'usecases';
 
 export const Main = () => {
   const [response, setResponse] = useState({});
-  const [hasError, setHasError] = useState(false);
+  const [error, setError] = useState({ message: '', hasError: false });
   const [isLoading, toggleIsLoading] = useToggle();
 
   const _withSpinner = async (asyncTask) => {
@@ -20,7 +20,7 @@ export const Main = () => {
     const responseData = await _withSpinner(async () => useCase.execute(word));
 
     if (!responseData) {
-      setHasError(true);
+      setError({ message: `Sorry, word '${word}' not found`, hasError: true });
       setResponse({});
       return;
     }
@@ -29,12 +29,12 @@ export const Main = () => {
 
   return (
     <main>
-      <Form setHasError={setHasError} hasError={hasError} callback={searchWord} />
+      <Form setError={setError} error={error} callback={searchWord} />
       <section aria-busy={isLoading}>
         {isLoading
           ? null
-          : hasError
-            ? <div className='error-message text-center'>Sorry, word not found</div>
+          : error.hasError
+            ? <div className='error-message text-center'>{error.message}</div>
             : response && response.word
               ? <Results word={response.word} pronunciation={response.pronunciation} frequency={response.frequency} results={response.results} />
               : null}

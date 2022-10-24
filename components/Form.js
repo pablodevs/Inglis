@@ -1,17 +1,19 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
-export const Form = ({ setHasError, hasError, callback }) => {
+export const Form = ({ setError, error, callback }) => {
   const [data, setData] = useState('');
+  const inputEl = useRef(null);
 
   const handleChange = (event) => {
-    setHasError(false);
+    setError({ message: '', hasError: false });
     setData(event.target.value);
   };
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (data && !hasError) {
+    if (data && !error.hasError) {
       await callback(data);
       setData('');
+      inputEl.current.blur();
     }
   };
 
@@ -23,7 +25,8 @@ export const Form = ({ setHasError, hasError, callback }) => {
         name='search'
         placeholder='Enter an english word'
         value={data}
-        onChange={handleChange} />
+        onChange={handleChange}
+        ref={inputEl} />
     </form>
   );
 };
