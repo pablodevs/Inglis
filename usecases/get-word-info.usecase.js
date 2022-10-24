@@ -1,16 +1,18 @@
-import { WordRepository } from 'repository/word.repository';
+import { WordRepository } from 'repositories';
+import { TranslatorService } from 'services';
 
 export class GetWordInfoUseCase {
 
-  #mapResponse = (response) => ({
+  #mapResponse = async (response) => ({
     ...response,
-    pronunciation: !response.pronunciation ? '' : typeof response.pronunciation === 'string' ? response.pronunciation : response.pronunciation.all
+    pronunciation: !response.pronunciation ? '' : typeof response.pronunciation === 'string' ? response.pronunciation : response.pronunciation.all,
+    translation: await TranslatorService.translate(response.word)
   });
 
   execute = async (word) => {
     const repository = new WordRepository();
     let response = await repository.getWordInfo(word);
-    response &&= this.#mapResponse(response);
+    response &&= await this.#mapResponse(response);
     return response;
   };
 

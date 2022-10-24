@@ -54,10 +54,6 @@ export default function Home() {
           gap: 1rem;
         }
 
-        input[type='search'] {
-          margin-bottom: 0;
-        }
-
         .error-message {
           color: var(--del-color);
         }

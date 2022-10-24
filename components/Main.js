@@ -36,7 +36,7 @@ export const Main = () => {
           : error.hasError
             ? <div className='error-message text-center'>{error.message}</div>
             : response && response.word
-              ? <Results word={response.word} pronunciation={response.pronunciation} frequency={response.frequency} results={response.results} />
+              ? <Results word={response.word} pronunciation={response.pronunciation} frequency={response.frequency} results={response.results} translation={response.translation} />
               : null}
       </section>
     </main>

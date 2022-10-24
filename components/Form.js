@@ -18,15 +18,22 @@ export const Form = ({ setError, error, callback }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type='search'
-        id='search'
-        name='search'
-        placeholder='Enter an english word'
-        value={data}
-        onChange={handleChange}
-        ref={inputEl} />
-    </form>
+    <>
+      <form onSubmit={handleSubmit}>
+        <input
+          type='search'
+          id='search'
+          name='search'
+          placeholder='Enter an english word'
+          value={data}
+          onChange={handleChange}
+          ref={inputEl} />
+      </form>
+      <style jsx>{`
+        input[type='search'] {
+          margin-bottom: 0;
+        }
+    `}</style>
+    </>
   );
 };
