@@ -1,1 +1,1 @@
-This is a starter template for [Learn Next.js](https://nextjs.org/learn).
+English dictionary app using [WordsAPI](https://rapidapi.com/dpventures/api/wordsapi).
